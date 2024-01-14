@@ -1,6 +1,6 @@
-import { Customer } from "src/core/domain/entities/customer";
-import { ICustomerRepository } from "src/core/domain/repositories/customerRepository";
-import { ICustomerUseCase } from "src/core/domain/usecases/ICustomerUseCase";
+import { Customer } from "core/domain/entities/customer";
+import { ICustomerRepository } from "core/domain/repositories/customerRepository";
+import { ICustomerUseCase } from "core/domain/usecases/ICustomerUseCase";
 
 export class CustomerUseCase implements ICustomerUseCase {
   constructor(private readonly customerRepository: ICustomerRepository) {}

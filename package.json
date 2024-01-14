@@ -2,12 +2,12 @@
   "name": "tech-challenge-fast-food-system-customer",
   "version": "1.0.0",
   "description": "Projeto da Pós Graduação da FIAP - Arquitetura de Software",
-  "main": "src/program.ts",
+  "main": "program.ts",
   "scripts": {
-    "start": "ts-node --project tsconfig.json src/program.ts",
-    "dev": "nodemon -r dotenv/config src/program.ts dotenv_config_path=.env",
-    "test": "NODE_ENV=test jest --passWithNoTests --runInBand",
-    "build": "tsc"
+    "test": "jest  --coverage",
+    "start": "nodemon ts-node --project tsconfig.json program.ts",
+    "dev": "nodemon -r dotenv/config program.ts dotenv_config_path=.env"
+  
   },
   "author": "",
   "license": "ISC",

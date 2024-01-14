@@ -1,5 +1,5 @@
-import { Customer } from "src/core/domain/entities/customer";
-import CustomerModel from "src/infra/persistence/models/customerModel";
+import { Customer } from "core/domain/entities/customer";
+import CustomerModel from "infra/persistence/models/customerModel";
 
 export class CustomerMap {
   static Convert(message: string, customer?: CustomerModel): Partial<Customer> {
