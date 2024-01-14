@@ -1,10 +1,11 @@
 import express, { Request, Response } from "express";
 
 import { CustomerRequest } from "../request/customerRequest";
+import { ValidationUtil } from "../validation/validationRequest";
 import { CustomerUseCase } from "core/application/usecases/customerUseCase";
 import { AddressUseCase } from "core/application/usecases/addressUseCase";
-import { ValidationUtil } from "framework/validation/validationRequest";
 import { Address } from "core/domain/entities/address";
+
 export class CustomerController {
   constructor(
     private readonly customerUseCase: CustomerUseCase,
