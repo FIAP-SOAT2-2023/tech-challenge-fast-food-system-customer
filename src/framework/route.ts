@@ -1,11 +1,12 @@
-import { AddressUseCase } from "core/application/usecases/addressUseCase";
-import { CustomerUseCase } from "core/application/usecases/customerUseCase";
+
 import express, { Request, Response, NextFunction } from "express";
-import { AddressRepository } from "infra/persistence/repositories/addressRepository";
-import { CustomerRepository } from "infra/persistence/repositories/customerRepository";
 import swaggerUi from "swagger-ui-express";
 import { CustomerController } from "./controllers/customerController";
-import swaggerConfig from "infra/docs/swagger";
+import swaggerConfig from "../infra/docs/swagger";
+import {AddressRepository} from "../infra/persistence/repositories/addressRepository";
+import {CustomerRepository} from "../infra/persistence/repositories/customerRepository";
+import {AddressUseCase} from "../core/application/usecases/addressUseCase";
+import {CustomerUseCase} from "../core/application/usecases/customerUseCase";
 
 export interface Error {
   message?: string;

@@ -1,5 +1,5 @@
-import { CustomerUseCase } from "core/application/usecases/customerUseCase";
-import { Customer } from "core/domain/entities/customer";
+import {Customer} from "../../src/core/domain/entities/customer";
+import {CustomerUseCase} from "../../src/core/application/usecases/customerUseCase";
 
 const customerRepository = require("infra/repositories/customerRepository");
 describe("Customer Service", () => {

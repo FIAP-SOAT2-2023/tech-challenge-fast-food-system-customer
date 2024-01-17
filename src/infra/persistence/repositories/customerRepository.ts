@@ -1,9 +1,9 @@
 import { injectable } from "tsyringe";
 import CustomerModel from "../models/customerModel";
-import { ICustomerRepository } from "core/domain/repositories/customerRepository";
-import { Customer } from "core/domain/entities/customer";
-import { CustomerMap } from "framework/mapper/customerMap";
-import { ValidationDocument } from "core/domain/valueObject/validationDocument";
+import {ICustomerRepository} from "../../../core/domain/repositories/customerRepository";
+import {Customer} from "../../../core/domain/entities/customer";
+import {ValidationDocument} from "../../../core/domain/valueObject/validationDocument";
+import {CustomerMap} from "../../../framework/mapper/customerMap";
 
 @injectable()
 export class CustomerRepository implements ICustomerRepository {

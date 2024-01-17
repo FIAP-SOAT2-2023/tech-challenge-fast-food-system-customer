@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest  --coverage",
     "start": "nodemon ts-node --project tsconfig.json src/program.ts",
-    "dev": "nodemon -r dotenv/config src/program.ts dotenv_config_path=.env"
+    "dev": "nodemon -r dotenv/config src/program.ts dotenv_config_path=.env",
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
