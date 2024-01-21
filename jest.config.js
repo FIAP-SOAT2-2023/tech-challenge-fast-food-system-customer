@@ -14,9 +14,19 @@ module.exports = {
   },
   coverageReporters: ["json", "html", "text"],
   collectCoverageFrom: [
-    "<rootDir>/src/core/applications/usecases/*.ts",
-    "<rootDir>/src/framework/controllers/*.ts",
-    "<rootDir>/src/framework/validation/*.ts",
-    "<rootDir>/src/framework/route.ts",
+    "src/**/*.{js,jsx,ts,tsx}", // Inclui todos os arquivos JavaScript e TypeScript no diretório 'src'
+    "!src/program.ts", // Exclui um arquivo específico (por exemplo, o ponto de entrada da aplicação)
+    "!src/infra/persistence/models/**", // Exclui um arquivo específico (por exemplo, o ponto de entrada da aplicação)
+    "!src/infra/persistence/config/**", // Exclui um arquivo específico (por exemplo, o ponto de entrada da aplicação)
+    "!src/infra/persistence/database/**", // Exclui um arquivo específico (por exemplo, o ponto de entrada da aplicação)
+    "!src/infra/docs/**", // Exclui um arquivo específico (por exemplo, o ponto de entrada da aplicação)
+    "!**/node_modules/**", // Exclui o diretório 'node_modules'
+    "!**/vendor/**", // Exclui o diretório 'vendor' (caso exista)
   ],
+  moduleDirectories: ["node_modules", "<rootDir>"],
+  coverageThreshold: {
+    global: {
+      lines: 80,
+    },
+  },
 };

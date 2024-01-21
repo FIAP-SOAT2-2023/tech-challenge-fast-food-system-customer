@@ -1,11 +1,18 @@
 import { CustomerUseCase } from "core/application/usecases/customerUseCase";
 import { Customer } from "core/domain/entities/customer";
+import { ICustomerRepository } from "core/domain/repositories/customerRepository";
+import { mock } from "jest-mock-extended";
 
-const customerRepository = require("infra/repositories/customerRepository");
+jest.mock("infra/persistence/repositories/customerRepository", () => ({
+  addCustomer: jest.fn(),
+}));
 describe("Customer Service", () => {
-  let customers: Customer;
+  const mockedcustomerRepository = mock<ICustomerRepository>();
+
+  const customerUseCase = new CustomerUseCase(mockedcustomerRepository);
+  let mockCustomer: Customer;
   beforeEach(() => {
-    customers = {
+    mockCustomer = {
       firstName: "Elir",
       lastName: "Ribeiro",
       document: "665656565",
@@ -13,9 +20,11 @@ describe("Customer Service", () => {
       cellphone: "7676767",
     };
   });
-  let customerUseCase: CustomerUseCase;
-  customerUseCase = new CustomerUseCase(customerRepository);
+
   it("should create new customer", async () => {
+    const addCustomerSpyOn = jest.spyOn(customerUseCase, "addCustomer");
+    (addCustomerSpyOn as jest.Mock).mockResolvedValue(mockCustomer);
+
     const result = await customerUseCase.addCustomer({
       firstName: "Elir",
       lastName: "Ribeiro",
@@ -23,7 +32,9 @@ describe("Customer Service", () => {
       email: "elirweb",
       cellphone: "7676767",
     });
-    console.log(result);
-    //expect(result).toHaveProperty("firstName");
+
+    expect(addCustomerSpyOn).toHaveBeenCalledWith(mockCustomer);
+    addCustomerSpyOn.mockRestore();
+    expect(result).toEqual(mockCustomer);
   });
 });
