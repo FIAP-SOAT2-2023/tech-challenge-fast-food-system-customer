@@ -22,6 +22,9 @@ module.exports = {
     "!src/infra/persistence/database/**", // Exclui um arquivo específico (por exemplo, o ponto de entrada da aplicação)
     "!src/infra/docs/**", // Exclui um arquivo específico (por exemplo, o ponto de entrada da aplicação)
     "!src/framework/request/**", // Exclui um arquivo específico (por exemplo, o ponto de entrada da aplicação)
+    "!src/framework/validation/**", // Exclui um arquivo específico (por exemplo, o ponto de entrada da aplicação)
+    "!src/framework/mapper/**", // Exclui um arquivo específico (por exemplo, o ponto de entrada da aplicação)
+    "!src/core/domain/valueObject/**", // Exclui um arquivo específico (por exemplo, o ponto de entrada da aplicação)
     "!**/node_modules/**", // Exclui o diretório 'node_modules'
     "!**/vendor/**", // Exclui o diretório 'vendor' (caso exista)
   ],

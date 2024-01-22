@@ -135,4 +135,22 @@ describe("Customer", () => {
       expect(result).toEqual(mockAddress);
     });
   });
+
+  describe("Customer not found", () => {
+    it("should return customer not found", async () => {
+      const mail = "teste@teste";
+      const getCustomerByMailSpyOn = jest.spyOn(
+        customerUseCase,
+        "getCustomerByMail"
+      );
+      (getCustomerByMailSpyOn as jest.Mock).mockResolvedValue(
+        "Cliente não encontrado"
+      );
+
+      const result = await customerUseCase.getCustomerByMail(mail);
+      expect(getCustomerByMailSpyOn).toHaveBeenCalledWith(mail);
+      expect(customerUseCase.getCustomerByMail).toHaveBeenCalledWith(mail);
+      expect(result).toEqual("Cliente não encontrado");
+    });
+  });
 });
