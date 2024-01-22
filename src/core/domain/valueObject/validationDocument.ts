@@ -1,5 +1,5 @@
 export class ValidationDocument {
-  static isValidCPF(cpf: string): boolean {
+  static isValidCPF(cpf: any): boolean {
     if (typeof cpf !== "string") return false;
     cpf = cpf.replace(/[\s.-]*/gim, "");
     if (
