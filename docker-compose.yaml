@@ -4,6 +4,7 @@ services:
   mysqldb:
     image: mysql:8.0
     restart: unless-stopped
+    container_name: customer_db
     env_file:
       - .env
     environment:
@@ -18,6 +19,7 @@ services:
     volumes:
       - ./data/mysql:/var/lib/mysql
   fastfoodservice:
+    container_name: customer_service
     depends_on:
       - mysqldb
     build: ./

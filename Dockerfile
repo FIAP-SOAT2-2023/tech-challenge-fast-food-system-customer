@@ -13,8 +13,5 @@ COPY . .
 # Instalar dependências do projeto
 RUN npm install
 
-# Copiar o código fonte do seu projeto
-COPY . .
-
 # O comando para iniciar a aplicação
 CMD ["npm", "start"]
