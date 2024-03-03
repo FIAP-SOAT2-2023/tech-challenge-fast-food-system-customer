@@ -108,6 +108,38 @@ const swaggerConfig = {
         },
       },
     },
+
+    "/getCustomerQuee": {
+      get: {
+        summary: "obter as mensagem de pedido",
+        tags: ["Customers"],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/Quee",
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: "mensagem recebida",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/Quee",
+                },
+              },
+            },
+          },
+          500: {
+            description: "Erro interno do servidor",
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
@@ -136,6 +168,15 @@ const swaggerConfig = {
           },
         },
         required: ["firstName", "lastName", "document", "email", "cellphone"],
+      },
+      Quee: {
+        type: "object",
+        properties: {
+          message: {
+            type: "string",
+            example: "Olá seu pedido: {numero} esta sendo preparado ",
+          },
+        },
       },
     },
   },

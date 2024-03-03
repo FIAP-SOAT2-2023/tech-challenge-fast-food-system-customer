@@ -2,9 +2,9 @@ import express, { Request, Response } from "express";
 
 import { CustomerRequest } from "../request/customerRequest";
 import { ValidationUtil } from "../validation/validationRequest";
-import {CustomerUseCase} from "../../core/application/usecases/customerUseCase";
-import {AddressUseCase} from "../../core/application/usecases/addressUseCase";
-import {Address} from "../../core/domain/entities/address";
+import { CustomerUseCase } from "../../core/application/usecases/customerUseCase";
+import { AddressUseCase } from "../../core/application/usecases/addressUseCase";
+import { Address } from "../../core/domain/entities/address";
 export class CustomerController {
   constructor(
     private readonly customerUseCase: CustomerUseCase,
@@ -48,5 +48,11 @@ export class CustomerController {
     };
     await this.addressUseCase.addAddress(address);
     res.status(201).json(result);
+  }
+
+  async getCustomerQuee(res: Response) {
+    const result = await this.customerUseCase.getCustomerQuee();
+
+    res.status(200).json(result);
   }
 }

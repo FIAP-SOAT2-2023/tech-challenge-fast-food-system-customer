@@ -8,4 +8,5 @@ export interface ICustomerRepository {
   addCustomer(body: Customer): Promise<Customer>;
 
   findByUUID(customerId: string): Promise<Customer>;
+  getCustomerQuee(): Promise<string>;
 }

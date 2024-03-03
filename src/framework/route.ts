@@ -1,12 +1,11 @@
-
 import express, { Request, Response, NextFunction } from "express";
 import swaggerUi from "swagger-ui-express";
 import { CustomerController } from "./controllers/customerController";
 import swaggerConfig from "../infra/docs/swagger";
-import {AddressRepository} from "../infra/persistence/repositories/addressRepository";
-import {CustomerRepository} from "../infra/persistence/repositories/customerRepository";
-import {AddressUseCase} from "../core/application/usecases/addressUseCase";
-import {CustomerUseCase} from "../core/application/usecases/customerUseCase";
+import { AddressRepository } from "../infra/persistence/repositories/addressRepository";
+import { CustomerRepository } from "../infra/persistence/repositories/customerRepository";
+import { AddressUseCase } from "../core/application/usecases/addressUseCase";
+import { CustomerUseCase } from "../core/application/usecases/customerUseCase";
 
 export interface Error {
   message?: string;
@@ -85,9 +84,9 @@ export class Route {
         customerController.getCustomerByEmail.bind(customerController)
       );
     });
-    app.listen(3000, () =>
+    app.listen(3400, () =>
       console.log(
-        "Server is listening on port 3000 \n SWAGGER: http://localhost:3000/docs"
+        "Server is listening on port 3000 \n SWAGGER: http://localhost:3400/docs"
       )
     );
   }

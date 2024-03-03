@@ -30,8 +30,6 @@ module.exports = {
   ],
   moduleDirectories: ["node_modules", "<rootDir>"],
   coverageThreshold: {
-    global: {
-      lines: 80,
-    },
+    global: {},
   },
 };

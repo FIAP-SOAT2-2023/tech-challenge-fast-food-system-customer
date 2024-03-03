@@ -16,4 +16,8 @@ export class CustomerUseCase implements ICustomerUseCase {
   async addCustomer(body: Customer): Promise<Customer> {
     return this.customerRepository.addCustomer(body);
   }
+
+  async getCustomerQuee(): Promise<string> {
+    return this.customerRepository.getCustomerQuee();
+  }
 }
