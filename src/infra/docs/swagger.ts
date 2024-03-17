@@ -108,7 +108,6 @@ const swaggerConfig = {
         },
       },
     },
-
     "/getCustomerQuee": {
       get: {
         summary: "obter as mensagem de pedido",
@@ -130,6 +129,38 @@ const swaggerConfig = {
               "application/json": {
                 schema: {
                   $ref: "#/components/schemas/Quee",
+                },
+              },
+            },
+          },
+          500: {
+            description: "Erro interno do servidor",
+          },
+        },
+      },
+    },
+
+    "/deleteUser": {
+      delete: {
+        summary: "exclusão dos dados pessoais",
+        tags: ["Customers"],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: {
+                $ref: "#/components/schemas/deleteUser",
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: "Usuário removido com sucesso",
+            content: {
+              "application/json": {
+                schema: {
+                  $ref: "#/components/schemas/deleteUser",
                 },
               },
             },
@@ -177,6 +208,20 @@ const swaggerConfig = {
             example: "Olá seu pedido: {numero} esta sendo preparado ",
           },
         },
+      },
+      deleteUser: {
+        type: "object",
+        properties: {
+          firstName: {
+            type: "string",
+            example: "Fernando",
+          },
+          cellphone: {
+            type: "string",
+            example: "11960809533",
+          },
+        },
+        required: ["firstName", "cellphone"],
       },
     },
   },

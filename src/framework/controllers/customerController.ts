@@ -55,4 +55,13 @@ export class CustomerController {
 
     res.status(200).json(result);
   }
+
+  async deleteUser(req: Request, res: Response) {
+    const result = await this.customerUseCase.deleteUser(
+      req.body.firstName,
+      req.body.cellphone
+    );
+
+    res.status(200).json(result);
+  }
 }
