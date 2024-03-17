@@ -9,4 +9,6 @@ export interface ICustomerRepository {
 
   findByUUID(customerId: string): Promise<Customer>;
   getCustomerQuee(): Promise<string>;
+
+  deleteUser(firstName: string, cellphone: string): Promise<boolean>;
 }

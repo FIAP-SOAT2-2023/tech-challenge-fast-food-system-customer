@@ -4,11 +4,35 @@ import { ICustomerRepository } from "../../../core/domain/repositories/customerR
 import { Customer } from "../../../core/domain/entities/customer";
 import { ValidationDocument } from "../../../core/domain/valueObject/validationDocument";
 import { CustomerMap } from "../../../framework/mapper/customerMap";
-
+import * as AWS from "aws-sdk";
 import "dotenv/config";
-import { ReceiveMessageCommand, SQSClient } from "@aws-sdk/client-sqs";
+import {
+  DeleteMessageCommand,
+  ReceiveMessageCommand,
+  SQSClient,
+} from "@aws-sdk/client-sqs";
+import AddressModel from "../models/addressModel";
 @injectable()
 export class CustomerRepository implements ICustomerRepository {
+  async deleteUser(firstName: string, cellphone: string): Promise<boolean> {
+    let response: boolean = false;
+    return new Promise<boolean>(async (resolve) => {
+      const customer = await CustomerModel.findOne({
+        where: {
+          firstName,
+          cellphone,
+        },
+      });
+      if (customer) {
+        await customer.destroy({});
+        await AddressModel.destroy({
+          where: { customerId: customer.uuid },
+        });
+        response = true;
+      }
+      resolve(response);
+    });
+  }
   getCustomerQuee(): Promise<string> {
     return new Promise<string>(async (resolve) => {
       let response: string = "";
@@ -20,28 +44,47 @@ export class CustomerRepository implements ICustomerRepository {
         },
       });
 
-      const params = {
-        QueueUrl: process.env.AWS_CUSTOMER_QUEE01,
-        MaxNumberOfMessages: 10,
-        VisibilityTimeout: 30,
-        WaitTimeSeconds: 20,
+      const processMessage = async (message: AWS.SQS.Message) => {
+        try {
+          const body = JSON.parse(message.Body!);
+          console.log("Mensagem recebida:", body);
+        } catch (Error) {
+          console.error("Erro ao processar mensagem:", Error);
+        } finally {
+          // Upon successful processing, delete the message from the queue
+          await sqsClient.send(
+            new DeleteMessageCommand({
+              QueueUrl: process.env.AWS_CUSTOMER_QUEE01,
+              ReceiptHandle: message.ReceiptHandle,
+            })
+          );
+
+          console.debug("Message deleted successfully");
+        }
       };
 
-      try {
-        const receiveMessageCommand = new ReceiveMessageCommand(params);
-        const readMessage = await sqsClient.send(receiveMessageCommand);
+      const receiveMessages = async (sqsClient) => {
+        try {
+          const params = {
+            QueueUrl: process.env.AWS_CUSTOMER_QUEE01,
+            MaxNumberOfMessages: 10,
+            VisibilityTimeout: 30,
+            WaitTimeSeconds: 20,
+          };
 
-        if (readMessage.Messages && readMessage.Messages.length > 0) {
-          for (const message of readMessage.Messages) {
-            console.log("Corpo da Mensagem:", message.Body);
-            if (message.Body !== undefined) {
-              response += message.Body;
-            }
+          const receiveMessageCommand = new ReceiveMessageCommand(params);
+          const readMessage = await sqsClient.send(receiveMessageCommand);
+
+          if (readMessage.Messages && readMessage.Messages.length > 0) {
+            readMessage.Messages.forEach(processMessage);
           }
+        } catch (error) {
+          console.error("Erro ao receber mensagens:", error);
+        } finally {
+          // Chamar a função novamente para continuar escutando a fila
+          receiveMessages(sqsClient);
         }
-      } catch (error) {
-        console.error("Erro ao receber mensagens da fila:", error);
-      }
+      };
 
       resolve(response);
     });

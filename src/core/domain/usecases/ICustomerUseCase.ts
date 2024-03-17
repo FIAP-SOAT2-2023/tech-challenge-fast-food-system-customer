@@ -5,4 +5,5 @@ export interface ICustomerUseCase {
   getCustomerByDocument(document: string): Promise<Customer>;
   getCustomerByMail(mail: string): Promise<Customer>;
   getCustomerQuee(): Promise<string>;
+  deleteUser(firstName: string, cellphone: string): Promise<boolean>;
 }

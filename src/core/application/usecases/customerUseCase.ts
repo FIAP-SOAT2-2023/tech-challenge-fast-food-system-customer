@@ -4,6 +4,9 @@ import { Customer } from "../../domain/entities/customer";
 
 export class CustomerUseCase implements ICustomerUseCase {
   constructor(private readonly customerRepository: ICustomerRepository) {}
+  deleteUser(firstName: string, cellphone: string): Promise<boolean> {
+    return this.customerRepository.deleteUser(firstName, cellphone);
+  }
 
   async getCustomerByDocument(document: string): Promise<Customer> {
     return this.customerRepository.getCustomerByDocument(document);

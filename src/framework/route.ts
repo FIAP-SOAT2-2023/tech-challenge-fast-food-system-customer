@@ -88,6 +88,15 @@ export class Route {
         customerController.getCustomerByEmail.bind(customerController)
       );
     });
+
+    app.delete("/deleteUser", async (req, resp, next) => {
+      await Route.asyncWrapper(
+        req,
+        resp,
+        next,
+        customerController.deleteUser.bind(customerController)
+      );
+    });
     app.listen(3400, () =>
       console.log(
         "Server is listening on port 3000 \n SWAGGER: http://localhost:3400/docs"
