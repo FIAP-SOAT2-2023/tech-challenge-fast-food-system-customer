@@ -6,6 +6,7 @@ import { AddressRepository } from "../infra/persistence/repositories/addressRepo
 import { CustomerRepository } from "../infra/persistence/repositories/customerRepository";
 import { AddressUseCase } from "../core/application/usecases/addressUseCase";
 import { CustomerUseCase } from "../core/application/usecases/customerUseCase";
+import listenSQSUser from "./listener/User";
 
 export interface Error {
   message?: string;
@@ -46,6 +47,9 @@ export class Route {
       customerUseCase,
       addressUseCase
     );
+
+    listenSQSUser();
+
     const app = express();
     app.use(express.json());
 
